@@ -2,9 +2,12 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:navigation/Screens/business_screen.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({required this.update, super.key});
+
+  final Function update;
 
   @override
   LoginScreenState createState() => LoginScreenState();
@@ -16,56 +19,52 @@ class LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          margin: EdgeInsets.only(
-            top: 50,
-            left: 20,
-            right: 20,
+    return Container(
+      margin: EdgeInsets.only(
+        top: 50,
+        left: 20,
+        right: 20,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.only(
+              bottom: 12,
+            ),
+            child: Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 30,
+              ),
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: 12,
-                ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 30,
-                  ),
-                ),
-              ),
-              textInput(
-                'User Id',
-                'enter userid',
-                userIdController,
-              ),
-              textInput(
-                'Password',
-                'enter password',
-                passwordController,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    doLogin();
-                  },
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.only(
-                      left: 40,
-                      right: 40,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          textInput(
+            'User Id',
+            'enter userid',
+            userIdController,
           ),
-        ),
+          textInput(
+            'Password',
+            'enter password',
+            passwordController,
+          ),
+          Align(
+            alignment: Alignment.center,
+            child: ElevatedButton(
+              onPressed: () {
+                doLogin();
+              },
+              child: Text('Login'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.only(
+                  left: 40,
+                  right: 40,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -123,11 +122,12 @@ class LoginScreenState extends State<LoginScreen> {
 
     String level = data['level'];
 
-    // if (level == "User") {
-    //   Navigator.pushNamed(context, '/LoggedUser');
-    // } else {
-    //   ScaffoldMessenger.of(context)
-    //       .showSnackBar(SnackBar(content: Text('Login Failed')));
-    // }
+    if (level == "User") {
+      // Navigator.pushNamed(context, '/LoggedUser');
+      widget.update(businessScreen());
+    } else {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text('Login Failed')));
+    }
   }
 }

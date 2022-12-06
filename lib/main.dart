@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:navigation/Screens/business_screen.dart';
 import 'package:navigation/Screens/login_screen.dart';
+import 'package:navigation/Screens/school_screen.dart';
+import 'package:navigation/Screens/test_screen.dart';
+import 'package:navigation/Widget_Screens/widget_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -50,9 +54,21 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late LoginScreen loginScreen;
+
   String content = "";
 
-  Widget appWidget = Text("First");
+  Widget _appWidget = Text("First");
+
+  void initState() {
+    super.initState();
+  }
+
+  void _update(Widget nextPage) {
+    setState(() {
+      _appWidget = nextPage;
+    });
+  }
 
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
@@ -62,31 +78,15 @@ class _MyHomePageState extends State<MyHomePage> {
       'Index 0: Home',
       style: optionStyle,
     ),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
+    businessScreen(),
+    SchoolScreen(),
   ];
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   void _onItemTapped(int index) {
+    print("tapped $index");
     setState(() {
       _selectedIndex = index;
+      _appWidget = _widgetOptions[index];
     });
   }
 
@@ -125,7 +125,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ...
                 // Then close the drawer
                 setState(() {
-                  appWidget = Text("This is Login Page");
+                  // appWidget = Text("This is Login Page");
+                  _appWidget = LoginScreen(
+                    update: (Widget nextPage) {
+                      _update(nextPage);
+                    },
+                  );
                 });
                 Navigator.pop(context);
               },
@@ -137,7 +142,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ...
                 // Then close the drawer
                 setState(() {
-                  appWidget = Text("This is Register Page");
+                  _appWidget = Text("This is Register Page");
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Test'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = testScreen();
                 });
                 Navigator.pop(context);
               },
@@ -165,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            appWidget,
+            _appWidget,
           ],
         ),
       ),
@@ -188,11 +205,6 @@ class _MyHomePageState extends State<MyHomePage> {
         selectedItemColor: Colors.amber[800],
         onTap: _onItemTapped,
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
