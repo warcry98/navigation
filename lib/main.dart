@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:navigation/Screens/business_screen.dart';
+import 'package:navigation/Screens/create_user.dart';
+import 'package:navigation/Screens/list_screen.dart';
 import 'package:navigation/Screens/login_screen.dart';
 import 'package:navigation/Screens/school_screen.dart';
+import 'package:navigation/Screens/splash_screen.dart';
 import 'package:navigation/Screens/test_screen.dart';
 import 'package:navigation/Widget_Screens/widget_login.dart';
 
@@ -11,6 +15,10 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  Future<bool> checkLogin() async {
+    return await SessionManager().containsKey('userid');
+  }
 
   // This widget is the root of your application.
   @override
@@ -30,13 +38,25 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: FutureBuilder<bool>(
+          future: checkLogin(),
+          builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+            if (snapshot.data == false) {
+              return SplashScreen();
+            } else {
+              return MyHomePage(
+                widgetBefore: businessScreen(),
+                title: 'Demo',
+              );
+            }
+          }),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage(
+      {super.key, required this.widgetBefore, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -46,7 +66,7 @@ class MyHomePage extends StatefulWidget {
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
   // always marked "final".
-
+  final Widget widgetBefore;
   final String title;
 
   @override
@@ -58,10 +78,11 @@ class _MyHomePageState extends State<MyHomePage> {
 
   String content = "";
 
-  Widget _appWidget = Text("First");
+  late Widget _appWidget;
 
   void initState() {
     super.initState();
+    _appWidget = widget.widgetBefore;
   }
 
   void _update(Widget nextPage) {
@@ -148,6 +169,30 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              title: const Text('Create User'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = CreateUserScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('List Karyawan'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = ListScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: const Text('Test'),
               onTap: () {
                 // Update the state of the app
@@ -162,28 +207,16 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            _appWidget,
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              _appWidget,
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
