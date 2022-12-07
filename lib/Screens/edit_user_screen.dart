@@ -178,28 +178,26 @@ class EditUserScreenState extends State<EditUserScreen> {
     try {
       print("id: " + widget.idKaryawan);
       print("Date: " + DateFormat('y-M-d').format(selectedDate));
-      // var formData = FormData.fromMap({
-      //   'id': int.parse(widget.idKaryawan),
-      //   'namakaryawan': namaKaryawanController.text,
-      //   'tanggal': DateFormat('yMd').format(selectedDate),
-      //   'nid': nidController.text,
-      //   'level': selectedValue,
-      // });
+      // var response = await Dio().get(
+      //     'http://nusantarapowerrembang.com/flutter/senteditkaryawan.php',
+      //     queryParameters: {
+      //       'id': int.parse(widget.idKaryawan),
+      //     });
 
-      // var response = await Dio().post(
-      //   'http://nusantarapowerrembang.com/flutter/senteditkaryawan.php',
-      //   data: formData,
-      // );
-      var response = await Dio().get(
-          'http://nusantarapowerrembang.com/flutter/senteditkaryawan.php',
-          queryParameters: {
-            'id': widget.idKaryawan,
-            'namakaryawan': namaKaryawanController.text,
-            'tanggal': DateFormat('y-M-d').format(selectedDate),
-            'nid': nidController.text,
-            'level': selectedValue,
-            'foto': widget.foto,
-          });
+      var dataForm = FormData.fromMap({
+        'namakaryawan': namaKaryawanController.text,
+        'tanggal': DateFormat('y-M-d').format(selectedDate),
+        'nid': nidController.text,
+        'level': selectedValue,
+      });
+
+      var response = await Dio().post(
+        'http://nusantarapowerrembang.com/flutter/updatekaryawan.php',
+        queryParameters: {
+          'id': int.parse(widget.idKaryawan),
+        },
+        data: dataForm,
+      );
 
       print("response: $response");
 
