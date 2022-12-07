@@ -103,16 +103,12 @@ class CreateUserScreenState extends State<CreateUserScreen> {
             Container(
               margin: EdgeInsets.only(
                 top: 20,
-                bottom: 30,
+                bottom: 10,
               ),
               child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () async {
-                    // final result = await FilePicker.platform.pickFiles();
-                    // if (result == null) return;
-                    // files = result.files;
-                    // setState(() {});
                     showModalBottomSheet(
                         context: context,
                         builder: (context) {
@@ -128,8 +124,7 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                                     setState(() {
                                       imageFile = file;
                                     });
-                                    print(imageFile!.name);
-                                    print(imageFile!.path);
+                                    Navigator.of(context).pop();
                                   },
                                   icon: Icon(Icons.camera),
                                 ),
@@ -141,7 +136,7 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                                     setState(() {
                                       imageFile = file;
                                     });
-                                    print("imageFile: $imageFile");
+                                    Navigator.of(context).pop();
                                   },
                                   icon: Icon(Icons.browse_gallery),
                                 ),
@@ -154,10 +149,17 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                 ),
               ),
             ),
-            DropdownButton(
-              items: dropdownItems,
-              onChanged: (String? newValue) {},
-              value: selectedValue,
+            Align(
+              alignment: Alignment.center,
+              child: DropdownButton(
+                items: dropdownItems,
+                onChanged: (String? newValue) {
+                  if (newValue != null) {
+                    selectedValue = newValue;
+                  }
+                },
+                value: selectedValue,
+              ),
             ),
             Align(
               alignment: Alignment.center,
@@ -216,23 +218,38 @@ class CreateUserScreenState extends State<CreateUserScreen> {
   }
 
   Future<void> createUser() async {
-    var formData = FormData.fromMap({
-      'namakaryawan': nameController.text,
-      'tanggal': DateFormat('yMd').format(selectedDate),
-      'nid': '6122132W',
-      'password': passwordController.text,
-      'level': selectedValue,
-      'foto': await MultipartFile.fromFile(imageFile!.path,
-          contentType: MediaType('image', 'jpg'), filename: imageFile!.name),
-    });
+    try {
+      var formData = FormData.fromMap({
+        'namakaryawan': nameController.text,
+        'tanggal': DateFormat('yMd').format(selectedDate),
+        'nid': '6122132W',
+        'password': passwordController.text,
+        'level': selectedValue,
+        'foto': await MultipartFile.fromFile(imageFile!.path,
+            contentType: MediaType('image', 'jpg'), filename: imageFile!.name),
+      });
 
-    var response = await Dio().post(
-      'http://nusantarapowerrembang.com/flutter/simpankaryawan.php',
-      data: formData,
-    );
+      var response = await Dio().post(
+        'http://nusantarapowerrembang.com/flutter/simpankaryawan.php',
+        data: formData,
+      );
 
-    print("response: $response");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Register User Sukses'),
+          backgroundColor: Colors.blue,
+        ),
+      );
 
-    print(response.data);
+      print("response: $response");
+    } on DioError catch (e) {
+      print("error: $e");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Register User Gagal'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 }

@@ -45,7 +45,10 @@ class ListScreenState extends State<ListScreen> {
     return Column(
       children: [
         Container(
-          height: 600,
+          margin: EdgeInsets.only(
+            top: 20,
+          ),
+          height: 350,
           child: ListView.builder(
             physics: AlwaysScrollableScrollPhysics(),
             shrinkWrap: true,
@@ -104,18 +107,29 @@ class ListScreenState extends State<ListScreen> {
           children: [
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  editData = true;
-                });
-                print("editData: $editData");
+                if (editData) {
+                  setState(() {
+                    editData = false;
+                  });
+                } else {
+                  setState(() {
+                    editData = true;
+                  });
+                }
               },
               child: Text('Edit'),
             ),
             ElevatedButton(
               onPressed: () {
-                setState(() {
-                  deleteData = true;
-                });
+                if (deleteData) {
+                  setState(() {
+                    deleteData = false;
+                  });
+                } else {
+                  setState(() {
+                    deleteData = true;
+                  });
+                }
               },
               child: Text('Delete'),
             ),

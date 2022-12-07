@@ -23,26 +23,20 @@ class businessScreenState extends State<businessScreen> {
   String selectedValue = "User";
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Container(
+      alignment: Alignment.center,
+      margin: EdgeInsets.only(
+        top: 20,
+      ),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text('Business Screen'),
-          DropdownButton(
-            items: dropdownItems,
-            onChanged: (String? newValue) {},
-            value: selectedValue,
-          ),
           TextButton(
             onPressed: () async {
               await SessionManager().remove('userid');
               await SessionManager().remove('psw');
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (context) =>
-              //         MyHomePage(widgetBefore: LoginScreen(), title: 'Demo'),
-              //   ),
-              // );
+
               Navigator.push(
                 context,
                 MaterialPageRoute(

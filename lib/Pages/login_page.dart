@@ -110,47 +110,69 @@ class LoginPageState extends State<LoginPage> {
   }
 
   Future<void> doLogin() async {
-    var formData;
-    var checkUserId = await SessionManager().containsKey('userid');
-    if (checkUserId) {
-      formData = FormData.fromMap({
-        "userid": await SessionManager().get('userid'),
-        "psw": await SessionManager().get('psw'),
-        "op": "login",
-      });
-    } else {
-      formData = FormData.fromMap({
-        "userid": userIdController.text,
-        "psw": passwordController.text,
-        "op": "login",
-      });
-    }
+    try {
+      var formData;
+      var checkUserId = await SessionManager().containsKey('userid');
+      if (checkUserId) {
+        formData = FormData.fromMap({
+          "userid": await SessionManager().get('userid'),
+          "psw": await SessionManager().get('psw'),
+          "op": "login",
+        });
+      } else {
+        formData = FormData.fromMap({
+          "userid": userIdController.text,
+          "psw": passwordController.text,
+          "op": "login",
+        });
+      }
 
-    var response = await Dio().post(
-      'http://nusantarapowerrembang.com/flutter/log1.php',
-      data: formData,
-    );
+      var response = await Dio().post(
+        'http://nusantarapowerrembang.com/flutter/log1.php',
+        data: formData,
+      );
 
-    // print(response.data);
-    Map<String, dynamic> data =
-        jsonDecode(response.data) as Map<String, dynamic>;
+      // print(response.data);
+      var data = jsonDecode(response.data);
 
-    String level = data['level'];
+      var level;
+      if (data != false) {
+        level = data['level'];
+      }
 
-    if (level == "User") {
-      await SessionManager().set('userid', userIdController.text);
-      await SessionManager().set('pws', passwordController.text);
-      // Navigator.pushNamed(context, '/LoggedUser');
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) =>
-              MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
+      if (level != null) {
+        await SessionManager().set('userid', userIdController.text);
+        await SessionManager().set('pws', passwordController.text);
+        // Navigator.pushNamed(context, '/LoggedUser');
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
+          ),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login Sukses'),
+            backgroundColor: Colors.blue,
+          ),
+        );
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Login Gagal'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } on DioError {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login Gagal'),
+          backgroundColor: Colors.red,
         ),
       );
-    } else {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Login Failed')));
     }
   }
 }

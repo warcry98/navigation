@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
 import 'package:navigation/Screens/business_screen.dart';
 import 'package:navigation/Screens/create_user.dart';
+import 'package:navigation/Screens/gaugechart_screen.dart';
+import 'package:navigation/Screens/linechart_screen.dart';
 import 'package:navigation/Screens/list_screen.dart';
 import 'package:navigation/Screens/login_screen.dart';
+import 'package:navigation/Screens/pdf_screen.dart';
+import 'package:navigation/Screens/piechart_screen.dart';
 import 'package:navigation/Screens/school_screen.dart';
 import 'package:navigation/Screens/splash_screen.dart';
 import 'package:navigation/Screens/test_screen.dart';
-import 'package:navigation/Widget_Screens/widget_login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -157,18 +160,6 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
-              title: const Text('Register'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                setState(() {
-                  _appWidget = Text("This is Register Page");
-                });
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
               title: const Text('Create User'),
               onTap: () {
                 // Update the state of the app
@@ -193,6 +184,54 @@ class _MyHomePageState extends State<MyHomePage> {
               },
             ),
             ListTile(
+              title: const Text('Pie Chart'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = PieChartScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Line Chart'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = LineChartScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Gauge Chart'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = GaugeChartScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Pdf Report'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = PdfScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: const Text('Test'),
               onTap: () {
                 // Update the state of the app
@@ -208,16 +247,12 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Center(
-          // Center is a layout widget. It takes a single child and positions it
-          // in the middle of the parent.
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              _appWidget,
-            ],
-          ),
-        ),
+        child: _appWidget,
+        // Center(
+        //   // Center is a layout widget. It takes a single child and positions it
+        //   // in the middle of the parent.
+        //   child: _appWidget,
+        // ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
