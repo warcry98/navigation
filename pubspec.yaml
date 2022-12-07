@@ -46,6 +46,7 @@ dependencies:
   gauges: ^1.0.0
   pdf: ^3.8.4
   printing: ^5.9.3
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

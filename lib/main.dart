@@ -11,6 +11,7 @@ import 'package:navigation/Screens/piechart_screen.dart';
 import 'package:navigation/Screens/school_screen.dart';
 import 'package:navigation/Screens/splash_screen.dart';
 import 'package:navigation/Screens/test_screen.dart';
+import 'package:navigation/Screens/webview_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -227,6 +228,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Then close the drawer
                 setState(() {
                   _appWidget = PdfScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Webview'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = WebViewScreen();
                 });
                 Navigator.pop(context);
               },
