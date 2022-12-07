@@ -202,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // ...
                 // Then close the drawer
                 setState(() {
-                  _appWidget = LineChartScreen();
+                  _appWidget = LineChartSample1();
                 });
                 Navigator.pop(context);
               },

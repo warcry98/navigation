@@ -2,9 +2,13 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:navigation/Screens/edit_user_screen.dart';
+import 'package:navigation/main.dart';
 
 class ListScreen extends StatefulWidget {
-  const ListScreen({super.key});
+  const ListScreen({this.update, super.key});
+
+  final Function? update;
 
   @override
   State<ListScreen> createState() => ListScreenState();
@@ -67,7 +71,7 @@ class ListScreenState extends State<ListScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _editButton(),
+                    _editButton(index),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +99,7 @@ class ListScreenState extends State<ListScreen> {
                         ),
                       ],
                     ),
-                    _deleteData(),
+                    _deleteData(index),
                   ],
                 ),
               );
@@ -139,10 +143,45 @@ class ListScreenState extends State<ListScreen> {
     );
   }
 
-  Widget _deleteData() {
+  Future<void> _showAlertDelete(int index) async {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Peringatan Hapus Data'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: [
+                Text('Anda akan hapus data?'),
+              ],
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, 'Tidak');
+              },
+              child: Text('Tidak'),
+            ),
+            TextButton(
+              onPressed: () {
+                deleteDataUser(index);
+                Navigator.pop(context, 'Ya');
+              },
+              child: Text('Ya'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _deleteData(index) {
     if (deleteData) {
       return IconButton(
-        onPressed: () {},
+        onPressed: () {
+          _showAlertDelete(index);
+        },
         icon: Icon(
           Icons.delete,
           color: Colors.red,
@@ -155,10 +194,41 @@ class ListScreenState extends State<ListScreen> {
     }
   }
 
-  Widget _editButton() {
+  Widget _editButton(int index) {
     if (editData) {
       return IconButton(
-        onPressed: () {},
+        onPressed: () {
+          var foto;
+          if (dataKaryawan[index]['foto'] != "") {
+            foto = 'http://nusantarapowerrembang.com/flutter/foto/' +
+                dataKaryawan[index]['foto'] +
+                '.jpg';
+          } else {
+            foto = null;
+          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => MyHomePage(
+                    widgetBefore: EditUserScreen(
+                      idKaryawan: dataKaryawan[index]['idkaryawan'],
+                      namaKaryawan: dataKaryawan[index]['namakaryawan'],
+                      nid: dataKaryawan[index]['nid'],
+                      foto: foto,
+                      tanggal: dataKaryawan[index]['tanggal'],
+                    ),
+                    title: 'Demo')),
+          );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => MyHomePage(
+          //       widgetBefore: EditUserScreen(),
+          //       title: 'Demo',
+          //     ),
+          //   ),
+          // );
+        },
         icon: Icon(
           Icons.edit,
           color: Colors.red,
@@ -171,8 +241,34 @@ class ListScreenState extends State<ListScreen> {
     }
   }
 
+  Future<void> deleteDataUser(int index) async {
+    try {
+      var response = await Dio().get(
+        'http://nusantarapowerrembang.com/flutter/deletekaryawan.php',
+        queryParameters: {
+          'id': dataKaryawan[index]['idkaryawan'],
+        },
+      );
+
+      print("response: $response");
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Data berhasil dihapus'),
+          backgroundColor: Colors.blue,
+        ),
+      );
+    } on DioError {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Data gagal dihapus'),
+          backgroundColor: Colors.blue,
+        ),
+      );
+    }
+  }
+
   Future<void> getList() async {
-    var formData;
     var response = await Dio()
         .get('http://nusantarapowerrembang.com/flutter/viewkaryawan.php');
     List data = json.decode(response.data);
