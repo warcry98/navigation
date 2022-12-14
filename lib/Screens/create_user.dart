@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:navigation/Screens/list_screen.dart';
+
+import '../main.dart';
 
 class CreateUserScreen extends StatefulWidget {
   const CreateUserScreen({super.key});
@@ -124,6 +127,7 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                                     setState(() {
                                       imageFile = file;
                                     });
+
                                     Navigator.of(context).pop();
                                   },
                                   icon: Icon(Icons.camera),
@@ -136,6 +140,7 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                                     setState(() {
                                       imageFile = file;
                                     });
+
                                     Navigator.of(context).pop();
                                   },
                                   icon: Icon(Icons.browse_gallery),
@@ -155,7 +160,9 @@ class CreateUserScreenState extends State<CreateUserScreen> {
                 items: dropdownItems,
                 onChanged: (String? newValue) {
                   if (newValue != null) {
-                    selectedValue = newValue;
+                    setState(() {
+                      selectedValue = newValue;
+                    });
                   }
                 },
                 value: selectedValue,
@@ -238,6 +245,14 @@ class CreateUserScreenState extends State<CreateUserScreen> {
         SnackBar(
           content: Text('Register User Sukses'),
           backgroundColor: Colors.blue,
+        ),
+      );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              MyHomePage(widgetBefore: ListScreen(), title: 'Demo'),
         ),
       );
 

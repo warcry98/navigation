@@ -97,15 +97,16 @@ class LoginScreenState extends State<LoginScreen> {
             controller: controller,
             textAlignVertical: TextAlignVertical.center,
             decoration: InputDecoration(
-                hintText: hintText,
-                contentPadding: EdgeInsets.only(
-                  left: 12,
-                  top: 0,
-                  bottom: 0,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                )),
+              hintText: hintText,
+              contentPadding: EdgeInsets.only(
+                left: 12,
+                top: 0,
+                bottom: 0,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+            ),
           ),
         ),
       ],
