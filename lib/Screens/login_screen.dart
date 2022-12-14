@@ -22,6 +22,12 @@ class LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('images/logo.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
       margin: EdgeInsets.only(
         top: 50,
         left: 20,

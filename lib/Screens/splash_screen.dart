@@ -6,6 +6,8 @@ import 'package:navigation/Pages/login_page.dart';
 import 'package:navigation/Screens/login_screen.dart';
 import 'package:navigation/main.dart';
 
+import 'business_screen.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -38,7 +40,8 @@ class SplashScreenState extends State<SplashScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => LoginPage(),
+        builder: (context) =>
+            MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
       ),
     );
   }
