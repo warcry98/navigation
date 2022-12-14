@@ -11,6 +11,10 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class WebViewScreenState extends State<WebViewScreen> {
+  var _url = 'https://en.wikipedia.com';
+
+  var _key = UniqueKey();
+
   @override
   void initState() {
     super.initState();
@@ -24,9 +28,10 @@ class WebViewScreenState extends State<WebViewScreen> {
       child: Column(
         children: [
           Expanded(
-            flex: 1,
             child: WebView(
-              initialUrl: 'https://flutter.dev',
+              key: _key,
+              initialUrl: _url,
+              javascriptMode: JavascriptMode.unrestricted,
             ),
           ),
         ],

@@ -259,14 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: SingleChildScrollView(
-        child: _appWidget,
-        // Center(
-        //   // Center is a layout widget. It takes a single child and positions it
-        //   // in the middle of the parent.
-        //   child: _appWidget,
-        // ),
-      ),
+      body: _appWidget,
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
