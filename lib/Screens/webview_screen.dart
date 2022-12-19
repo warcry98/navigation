@@ -25,7 +25,9 @@ class WebViewScreenState extends State<WebViewScreen> {
         children: [
           Expanded(
             child: InAppWebView(
-              initialUrlRequest: URLRequest(url: Uri.parse(_url)),
+              initialUrlRequest: URLRequest(
+                url: Uri.parse(_url),
+              ),
               onReceivedServerTrustAuthRequest: (controller, challenge) async {
                 return ServerTrustAuthResponse(
                     action: ServerTrustAuthResponseAction.PROCEED);
