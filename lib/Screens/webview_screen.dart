@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewScreen extends StatefulWidget {
@@ -11,15 +12,11 @@ class WebViewScreen extends StatefulWidget {
 }
 
 class WebViewScreenState extends State<WebViewScreen> {
-  var _url = 'https://en.wikipedia.com';
-
-  var _key = UniqueKey();
+  var _url = 'https://10.7.33.176/latihan/';
 
   @override
   void initState() {
     super.initState();
-
-    if (Platform.isAndroid) WebView.platform = AndroidWebView();
   }
 
   @override
@@ -28,10 +25,12 @@ class WebViewScreenState extends State<WebViewScreen> {
       child: Column(
         children: [
           Expanded(
-            child: WebView(
-              key: _key,
-              initialUrl: _url,
-              javascriptMode: JavascriptMode.unrestricted,
+            child: InAppWebView(
+              initialUrlRequest: URLRequest(url: Uri.parse(_url)),
+              onReceivedServerTrustAuthRequest: (controller, challenge) async {
+                return ServerTrustAuthResponse(
+                    action: ServerTrustAuthResponseAction.PROCEED);
+              },
             ),
           ),
         ],
