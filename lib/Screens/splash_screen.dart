@@ -6,6 +6,8 @@ import 'package:navigation/Pages/login_page.dart';
 import 'package:navigation/Screens/login_screen.dart';
 import 'package:navigation/main.dart';
 
+import 'package:flutter_session_manager/flutter_session_manager.dart';
+
 import 'business_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -24,10 +26,10 @@ class SplashScreenState extends State<SplashScreen> {
 
   startTime() async {
     var timeLoad = const Duration(seconds: 3);
-    return Timer(timeLoad, navigationPage);
+    return Timer(timeLoad, await navigationPage);
   }
 
-  void navigationPage() {
+  Future<void> navigationPage() async {
     // Navigator.push(
     //   context,
     //   MaterialPageRoute(
