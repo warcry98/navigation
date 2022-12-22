@@ -39,6 +39,16 @@ class SplashScreenState extends State<SplashScreen> {
     //     ),
     //   ),
     // );
+    var checkUserId = await SessionManager().containsKey('userid');
+      if (checkUserId) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
+          ),
+        );
+        } else {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -46,8 +56,11 @@ class SplashScreenState extends State<SplashScreen> {
             LoginPage(),
       ),
     );
+    }
   }
 
+
+      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
