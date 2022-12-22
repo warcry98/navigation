@@ -41,7 +41,7 @@ class SplashScreenState extends State<SplashScreen> {
       context,
       MaterialPageRoute(
         builder: (context) =>
-            MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
+            LoginPage(),
       ),
     );
   }
