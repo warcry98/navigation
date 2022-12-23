@@ -50,6 +50,7 @@ dependencies:
   flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
+  flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
 
