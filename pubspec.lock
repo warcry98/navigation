@@ -22,6 +22,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.9.0"
+  at_gauges:
+    dependency: "direct main"
+    description:
+      name: at_gauges
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   barcode:
     dependency: transitive
     description:

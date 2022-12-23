@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -383,5 +386,36 @@ class LineChartSample1State extends State<LineChartSample1> {
         ),
       ),
     );
+  }
+
+  Future<List> getLoad2() async {
+    try {
+      var response = await Dio(BaseOptions(
+        connectTimeout: 5000,
+        receiveTimeout: 3000,
+      )).get('http://nusantarapowerrembang.com/flutter/load2.php');
+
+      var data = jsonDecode(response.data);
+
+      return data;
+    } on DioError catch (e) {
+      var data = [
+        {
+          "UNIT10": "30",
+          "UNIT20": "40",
+          "UNIT30": "30",
+        },
+      ];
+      if (e.type == DioErrorType.connectTimeout) {
+        debugPrint("Connection Timeout Exception");
+        return data;
+      }
+      if (e.type == DioErrorType.receiveTimeout) {
+        debugPrint("Receive Timeout Exception");
+        return data;
+      }
+      debugPrint(e.message);
+      return data;
+    }
   }
 }
