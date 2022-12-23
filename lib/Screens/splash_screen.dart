@@ -30,37 +30,25 @@ class SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigationPage() async {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => MyHomePage(
-    //       widgetBefore: LoginScreen(),
-    //       title: 'Demo Navigation',
-    //     ),
-    //   ),
-    // );
     var checkUserId = await SessionManager().containsKey('userid');
-      if (checkUserId) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) =>
-                MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
-          ),
-        );
-        } else {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) =>
-            LoginPage(),
-      ),
-    );
+    if (checkUserId) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              MyHomePage(widgetBefore: businessScreen(), title: 'Demo'),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoginPage(),
+        ),
+      );
     }
   }
 
-
-      
   @override
   Widget build(BuildContext context) {
     return Scaffold(
