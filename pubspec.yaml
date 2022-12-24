@@ -49,6 +49,7 @@ dependencies:
   webview_flutter: ^3.0.4
   flutter_inappwebview: ^5.7.2+3
   at_gauges: ^1.0.1
+  flutter_barcode_scanner: ^2.0.0
 
 dev_dependencies:
   flutter_lints: ^2.0.1

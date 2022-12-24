@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_session_manager/flutter_session_manager.dart';
+import 'package:navigation/Screens/barcode_screen.dart';
 import 'package:navigation/Screens/business_screen.dart';
 import 'package:navigation/Screens/create_user.dart';
 import 'package:navigation/Screens/gaugechart_screen.dart';
@@ -240,6 +241,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Then close the drawer
                 setState(() {
                   _appWidget = WebViewScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Barcode Scanner'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = BarcodeScreen();
                 });
                 Navigator.pop(context);
               },

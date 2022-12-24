@@ -2,7 +2,7 @@
     package="com.example.navigation">
    <application
         android:label="navigation"
-        android:name="${applicationName}"
+        android:name="androidx.multidex.MultiDexApplication"
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
         android:icon="@mipmap/launcher_icon">

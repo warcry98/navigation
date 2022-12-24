@@ -37,7 +37,7 @@ class GaugeChartScreenState extends State<GaugeChartScreen> {
                 return const CircularProgressIndicator();
               } else if (snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasError) {
-                  return Text('Error');
+                  return Text(snapshot.error.toString());
                 } else if (snapshot.hasData) {
                   return Column(
                     children: [
@@ -80,23 +80,11 @@ class GaugeChartScreenState extends State<GaugeChartScreen> {
 
       var data = jsonDecode(response.data);
 
-      debugPrint('data: ' + data[0]['UNIT10']);
+      debugPrint('data: ${data[0]['UNIT10']}');
 
       return data;
     } on DioError catch (e) {
-      var data = [
-        {'unit10': '30'}
-      ];
-      if (e.type == DioErrorType.connectTimeout) {
-        debugPrint("Connection Timeout Exception");
-        return data;
-      }
-      if (e.type == DioErrorType.receiveTimeout) {
-        debugPrint("Receive Timeout Exception");
-        return data;
-      }
-      debugPrint(e.message);
-      return data;
+      return Future.error(e.toString());
     }
   }
 }
