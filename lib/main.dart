@@ -9,6 +9,7 @@ import 'package:navigation/Screens/list_screen.dart';
 import 'package:navigation/Screens/login_screen.dart';
 import 'package:navigation/Screens/pdf_screen.dart';
 import 'package:navigation/Screens/piechart_screen.dart';
+import 'package:navigation/Screens/rfid_screen.dart';
 import 'package:navigation/Screens/school_screen.dart';
 import 'package:navigation/Screens/splash_screen.dart';
 import 'package:navigation/Screens/test_screen.dart';
@@ -253,6 +254,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Then close the drawer
                 setState(() {
                   _appWidget = BarcodeScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('RFID Scanner'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = RFIDScreen();
                 });
                 Navigator.pop(context);
               },

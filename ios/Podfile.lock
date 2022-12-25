@@ -11,6 +11,8 @@ PODS:
     - OrderedSet (~> 5.0)
   - image_picker_ios (0.0.1):
     - Flutter
+  - nfc_manager (0.0.1):
+    - Flutter
   - OrderedSet (5.0.0)
   - printing (1.0.0):
     - Flutter
@@ -24,6 +26,7 @@ DEPENDENCIES:
   - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
   - flutter_inappwebview (from `.symlinks/plugins/flutter_inappwebview/ios`)
   - image_picker_ios (from `.symlinks/plugins/image_picker_ios/ios`)
+  - nfc_manager (from `.symlinks/plugins/nfc_manager/ios`)
   - printing (from `.symlinks/plugins/printing/ios`)
   - shared_preferences_ios (from `.symlinks/plugins/shared_preferences_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
@@ -41,6 +44,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/flutter_inappwebview/ios"
   image_picker_ios:
     :path: ".symlinks/plugins/image_picker_ios/ios"
+  nfc_manager:
+    :path: ".symlinks/plugins/nfc_manager/ios"
   printing:
     :path: ".symlinks/plugins/printing/ios"
   shared_preferences_ios:
@@ -53,6 +58,7 @@ SPEC CHECKSUMS:
   flutter_barcode_scanner: 7a1144744c28dc0c57a8de7218ffe5ec59a9e4bf
   flutter_inappwebview: bfd58618f49dc62f2676de690fc6dcda1d6c3721
   image_picker_ios: b786a5dcf033a8336a657191401bfdf12017dabb
+  nfc_manager: d7da7cb781f7744b94df5fe9dbca904ac4a0939e
   OrderedSet: aaeb196f7fef5a9edf55d89760da9176ad40b93c
   printing: eafa00acb682c0ca029d4d98d0798f55a1e27102
   shared_preferences_ios: 548a61f8053b9b8a49ac19c1ffbc8b92c50d68ad
