@@ -7,6 +7,7 @@ import 'package:navigation/Screens/gaugechart_screen.dart';
 import 'package:navigation/Screens/linechart_screen.dart';
 import 'package:navigation/Screens/list_screen.dart';
 import 'package:navigation/Screens/login_screen.dart';
+import 'package:navigation/Screens/menu_ujrb.dart';
 import 'package:navigation/Screens/pdf_screen.dart';
 import 'package:navigation/Screens/piechart_screen.dart';
 import 'package:navigation/Screens/rfid_screen.dart';
@@ -64,14 +65,6 @@ class MyHomePage extends StatefulWidget {
   const MyHomePage(
       {super.key, required this.widgetBefore, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
   final Widget widgetBefore;
   final String title;
 
@@ -266,6 +259,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Then close the drawer
                 setState(() {
                   _appWidget = RFIDScreen();
+                });
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: const Text('Menu Ujrb'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                setState(() {
+                  _appWidget = MenuUjrb();
                 });
                 Navigator.pop(context);
               },

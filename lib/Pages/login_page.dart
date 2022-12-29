@@ -28,46 +28,49 @@ class LoginPageState extends State<LoginPage> {
             left: 20,
             right: 20,
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(
-                  bottom: 12,
-                ),
-                child: Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 30,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(
+                    bottom: 12,
                   ),
-                ),
-              ),
-              textInput(
-                'User Id',
-                'enter userid',
-                userIdController,
-              ),
-              textInput(
-                'Password',
-                'enter password',
-                passwordController,
-              ),
-              Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    doLogin();
-                  },
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.only(
-                      left: 40,
-                      right: 40,
+                  child: Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 30,
                     ),
                   ),
                 ),
-              ),
-            ],
+                textInput(
+                  'User Id',
+                  'enter userid',
+                  userIdController,
+                ),
+                textInput(
+                  'Password',
+                  'enter password',
+                  passwordController,
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      doLogin();
+                    },
+                    child: Text('Login'),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.only(
+                        left: 40,
+                        right: 40,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -135,11 +135,6 @@ class EditUserScreenState extends State<EditUserScreen> {
               ),
             ],
           ),
-          // Align(
-          //   alignment: Alignment.center,
-          //   child:
-
-          // ),
           Align(
             alignment: Alignment.center,
             child: DropdownButton(
@@ -168,21 +163,10 @@ class EditUserScreenState extends State<EditUserScreen> {
     );
   }
 
-  // Widget photoPreview() {
-  //   if (widget.foto.isEmpty) {
-
-  //   }
-  // }
-
   Future<void> updateData() async {
     try {
       print("id: " + widget.idKaryawan);
       print("Date: " + DateFormat('y-M-d').format(selectedDate));
-      // var response = await Dio().get(
-      //     'http://nusantarapowerrembang.com/flutter/senteditkaryawan.php',
-      //     queryParameters: {
-      //       'id': int.parse(widget.idKaryawan),
-      //     });
 
       var dataForm = FormData.fromMap({
         'namakaryawan': namaKaryawanController.text,

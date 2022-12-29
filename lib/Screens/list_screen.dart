@@ -234,15 +234,6 @@ class ListScreenState extends State<ListScreen> {
                     ),
                     title: 'Demo')),
           );
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => MyHomePage(
-          //       widgetBefore: EditUserScreen(),
-          //       title: 'Demo',
-          //     ),
-          //   ),
-          // );
         },
         icon: Icon(
           Icons.edit,
