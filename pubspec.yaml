@@ -59,7 +59,7 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  image_path: "images/icon.png"
+  image_path: "images/icon-ios.png"
   min_sdk_android: 21
   adaptive_icon_foreground: "images/icon.png"
   android: true
